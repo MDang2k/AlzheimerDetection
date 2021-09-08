@@ -1,6 +1,5 @@
 import tensorflow as tf
 import cProfile
-import joblib
 import matplotlib.pyplot as plt
 from tensorflow import keras
 from tensorflow.keras.callbacks import ModelCheckpoint 
@@ -21,7 +20,7 @@ def run(model):
     train_loader = tf.data.Dataset.from_tensor_slices((data[0], data[1]))
     validation_loader = tf.data.Dataset.from_tensor_slices((data[2], data[3]))
 
-    batch_size = 2
+    batch_size = 1
 
     train_dataset = (
         train_loader.shuffle(len(data[0]))
@@ -67,9 +66,6 @@ def run(model):
             batch_size=20,
             callbacks=[checkpoint_cb, early_stopping_cb],
         )
-
-    #Save model
-    joblib.dump(model,'model.pkl')
 
 if __name__ == '__main__':
     
